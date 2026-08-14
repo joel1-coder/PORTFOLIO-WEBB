@@ -142,18 +142,6 @@
         z-index: 2;
       }
 
-      /* Bottom-Right Watermark Hide Shield */
-      .viewport-watermark-cover {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 160px;
-        height: 100px;
-        background: radial-gradient(circle at 100% 100%, #08080a 50%, rgba(8, 8, 10, 0.9) 75%, transparent 100%);
-        pointer-events: none;
-        z-index: 3;
-      }
-
       /* Preloader */
       .preloader {
         position: fixed;
@@ -281,22 +269,22 @@
       }
 
       .btn-white-pill {
-        background: linear-gradient(135deg, #ff4500 0%, #e03000 100%);
-        color: #ffffff;
+        background: #ffffff;
+        color: #08080a;
         border: none;
         padding: 10px 24px;
         border-radius: 100px;
-        font-weight: 600;
+        font-weight: 700;
         font-size: 0.88rem;
         cursor: pointer;
-        box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
         transition: transform 0.2s, box-shadow 0.2s;
         text-decoration: none;
       }
 
       .btn-white-pill:hover {
         transform: translateY(-1px);
-        box-shadow: 0 8px 30px rgba(255, 69, 0, 0.6);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
       }
 
       .hero-content {
@@ -1495,7 +1483,6 @@
   <div class="viewport">
     <canvas id="animationCanvas"></canvas>
     <div class="viewport-overlay"></div>
-    <div class="viewport-watermark-cover"></div>
   </div>
 
   <!-- Side Navigation Dots (5 Sections) -->
@@ -2179,11 +2166,16 @@
         // Render main image frame scaled full-screen
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
 
-        // Fill smooth dark patch at bottom-right corner to hide ezgif watermark 100%
-        ctx.fillStyle = '#08080a';
-        ctx.beginPath();
-        ctx.ellipse(w, h, 150, 100, 0, 0, Math.PI * 2);
-        ctx.fill();
+        // Glossy watermark removal (samples clean smoke texture from background frame)
+        const scaleX = drawW / imgW;
+        const scaleY = drawH / imgH;
+
+        ctx.drawImage(
+          img,
+          1650, 830, 270, 130,
+          drawX + 1650 * scaleX, drawY + 950 * scaleY,
+          270 * scaleX, 130 * scaleY
+        );
 
         ctx.restore();
       }
