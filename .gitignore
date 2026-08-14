@@ -1,0 +1,9 @@
+node_modules/
+frames_hd/
+package.json
+package-lock.json
+upscale_frames.js
+mirror_sync.js
+copy_frames.js
+.env
+*.log
