@@ -142,6 +142,18 @@
         z-index: 2;
       }
 
+      /* Bottom-Right Watermark Hide Shield */
+      .viewport-watermark-cover {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 160px;
+        height: 100px;
+        background: radial-gradient(circle at 100% 100%, #08080a 50%, rgba(8, 8, 10, 0.9) 75%, transparent 100%);
+        pointer-events: none;
+        z-index: 3;
+      }
+
       /* Preloader */
       .preloader {
         position: fixed;
@@ -1483,6 +1495,7 @@
   <div class="viewport">
     <canvas id="animationCanvas"></canvas>
     <div class="viewport-overlay"></div>
+    <div class="viewport-watermark-cover"></div>
   </div>
 
   <!-- Side Navigation Dots (5 Sections) -->
@@ -2166,19 +2179,11 @@
         // Render main image frame scaled full-screen
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
 
-        // Hide bottom-right ezgif watermark cleanly
-        const scaleX = drawW / imgW;
-        const scaleY = drawH / imgH;
-        const wmX = drawX + 1650 * scaleX;
-        const wmY = drawY + 960 * scaleY;
-        const wmW = 270 * scaleX;
-        const wmH = 120 * scaleY;
-
-        ctx.drawImage(
-          img,
-          1650, 840, 270, 120, // Sample clean background above
-          wmX, wmY, wmW, wmH   // Cover bottom-right watermark
-        );
+        // Fill smooth dark patch at bottom-right corner to hide ezgif watermark 100%
+        ctx.fillStyle = '#08080a';
+        ctx.beginPath();
+        ctx.ellipse(w, h, 150, 100, 0, 0, Math.PI * 2);
+        ctx.fill();
 
         ctx.restore();
       }
