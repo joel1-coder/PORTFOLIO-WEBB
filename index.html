@@ -31,6 +31,83 @@
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    /* ─── Custom Cursor ─── */
+    #cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      background: #ff8c00;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.18s ease, height 0.18s ease, background 0.18s ease, opacity 0.2s ease;
+      will-change: transform;
+    }
+
+    #cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      border: 2px solid rgba(255, 140, 0, 0.75);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+      will-change: transform;
+    }
+
+    /* Outer glow ring */
+    #cursor-ring::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 140, 0, 0.25);
+      pointer-events: none;
+    }
+
+    /* Hover state — enlarge ring, shrink dot */
+    body.cursor-hover #cursor-dot {
+      width: 5px;
+      height: 5px;
+      background: #ffffff;
+    }
+    body.cursor-hover #cursor-ring {
+      width: 52px;
+      height: 52px;
+      border-color: rgba(255, 140, 0, 1);
+    }
+
+    /* Click state — squish effect */
+    body.cursor-click #cursor-dot {
+      width: 4px;
+      height: 4px;
+      background: #ff8c00;
+    }
+    body.cursor-click #cursor-ring {
+      width: 28px;
+      height: 28px;
+      border-color: rgba(255, 200, 60, 1);
+    }
+
+    /* Hide on mobile — touch screens don't have cursors */
+    @media (hover: none) {
+      #cursor-dot, #cursor-ring { display: none; }
+      body { cursor: auto; }
+    }
+
+    /* Ensure all interactive elements inherit none */
+    a, button, [role="button"], input, textarea, select, label, .dot, .tool-card, .project-card, .quick-contact-card {
+      cursor: none;
     }
 
       /* Fixed Canvas Viewport (Background Frame Animation) */
@@ -1392,6 +1469,10 @@
 
 <body>
 
+  <!-- Custom Cursor Elements -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
   <div class="preloader" id="preloader">
     <div class="progress-bar-container">
       <div class="progress-bar" id="progressBar"></div>
@@ -2226,6 +2307,75 @@
       resizeCanvas();
       syncFromScroll();
       requestAnimationFrame(animationLoop);
+    })();
+  </script>
+
+  <!-- ═══ Custom Cursor Script ═══ -->
+  <script>
+    (function () {
+      const dot  = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
+      if (!dot || !ring) return;
+
+      let mouseX = -200, mouseY = -200;
+      let ringX  = -200, ringY  = -200;
+
+      // Track exact mouse position → dot follows instantly
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + 'px';
+        dot.style.top  = mouseY + 'px';
+      });
+
+      // Ring follows with smooth lerp lag
+      function animateCursor() {
+        const lerpFactor = 0.10;
+        ringX += (mouseX - ringX) * lerpFactor;
+        ringY += (mouseY - ringY) * lerpFactor;
+        ring.style.left = ringX + 'px';
+        ring.style.top  = ringY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      requestAnimationFrame(animateCursor);
+
+      // Hover detection — scale ring up on interactive elements
+      const hoverTargets = 'a, button, [role="button"], input, textarea, select, label, .dot, .tool-card, .project-card, .quick-contact-card, .btn-white-pill, .btn-send-message, .nav-link, .view-all-btn, .quick-contact-card';
+
+      document.querySelectorAll(hoverTargets).forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+
+      // Also use event delegation for dynamically rendered/hovered elements
+      document.addEventListener('mouseover', (e) => {
+        if (e.target.closest('a, button, input, textarea, select, .tool-card, .project-card, .quick-contact-card, .dot, .btn-white-pill, .btn-send-message')) {
+          document.body.classList.add('cursor-hover');
+        }
+      });
+      document.addEventListener('mouseout', (e) => {
+        if (e.target.closest('a, button, input, textarea, select, .tool-card, .project-card, .quick-contact-card, .dot, .btn-white-pill, .btn-send-message')) {
+          document.body.classList.remove('cursor-hover');
+        }
+      });
+
+      // Click burst animation
+      document.addEventListener('mousedown', () => {
+        document.body.classList.add('cursor-click');
+      });
+      document.addEventListener('mouseup', () => {
+        document.body.classList.remove('cursor-click');
+      });
+
+      // Hide cursor when mouse leaves window
+      document.addEventListener('mouseleave', () => {
+        dot.style.opacity  = '0';
+        ring.style.opacity = '0';
+      });
+      document.addEventListener('mouseenter', () => {
+        dot.style.opacity  = '1';
+        ring.style.opacity = '1';
+      });
     })();
   </script>
 </body>
