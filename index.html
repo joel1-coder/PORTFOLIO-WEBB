@@ -2163,41 +2163,8 @@
         const drawX = (w - drawW) / 2;
         const drawY = (h - drawH) / 2;
 
-        // 1. Render main image frame scaled full-screen
+        // Render main image frame scaled full-screen
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
-
-        // 2. Seamless Watermark Removal Patch
-        const scaleX = drawW / imgW;
-        const scaleY = drawH / imgH;
-
-        const wmSrcX = 1110;
-        const wmSrcY = 560;
-        const wmSrcW = 75;
-        const wmSrcH = 75;
-
-        const sampleSrcX = 1030;
-        const sampleSrcY = 560;
-
-        const targetX = drawX + wmSrcX * scaleX;
-        const targetY = drawY + wmSrcY * scaleY;
-        const targetW = wmSrcW * scaleX;
-        const targetH = wmSrcH * scaleY;
-
-        ctx.save();
-        ctx.beginPath();
-        const centerX = targetX + targetW / 2;
-        const centerY = targetY + targetH / 2;
-        const radius = Math.max(targetW, targetH) / 1.7;
-        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-        ctx.clip();
-
-        ctx.drawImage(
-          img,
-          sampleSrcX, sampleSrcY, wmSrcW, wmSrcH,
-          targetX, targetY, targetW, targetH
-        );
-
-        ctx.restore();
         ctx.restore();
       }
 
