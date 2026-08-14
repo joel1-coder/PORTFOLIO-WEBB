@@ -142,6 +142,18 @@
         z-index: 2;
       }
 
+      /* Bottom-right watermark shield — fixed, always covers that corner */
+      .watermark-shield {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 220px;
+        height: 130px;
+        background: radial-gradient(ellipse at 100% 100%, #08080a 40%, rgba(8,8,10,0.85) 65%, transparent 100%);
+        pointer-events: none;
+        z-index: 10;
+      }
+
       /* Preloader */
       .preloader {
         position: fixed;
@@ -1485,6 +1497,9 @@
     <div class="viewport-overlay"></div>
   </div>
 
+  <!-- Bottom-right watermark shield -->
+  <div class="watermark-shield"></div>
+
   <!-- Side Navigation Dots (5 Sections) -->
   <div class="nav-dots-indicator">
     <div class="dot active" id="dot1" title="Fluxora Hero"></div>
@@ -2165,17 +2180,6 @@
 
         // Render main image frame scaled full-screen
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
-
-        // Glossy watermark removal (samples clean smoke texture from background frame)
-        const scaleX = drawW / imgW;
-        const scaleY = drawH / imgH;
-
-        ctx.drawImage(
-          img,
-          1650, 830, 270, 130,
-          drawX + 1650 * scaleX, drawY + 950 * scaleY,
-          270 * scaleX, 130 * scaleY
-        );
 
         ctx.restore();
       }
