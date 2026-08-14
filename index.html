@@ -1605,12 +1605,12 @@
       <main class="about-main-content" style="padding-top: 40px;">
         <div class="about-left-header">
           <div class="hello-label">HELLO, I AM</div>
-          <h1 class="author-name">JOEL<br>A</h1>
+          <h1 class="author-name">JOEL<br><span style="color: #ff8c00;">A</span></h1>
         </div>
 
         <div class="about-right-details">
           <div class="bio-block">
-            <h2 class="section-title">ABOUT ME</h2>
+            <h2 class="section-title">ABOUT <span style="color: #ff8c00;">ME</span></h2>
             <p class="bio-text"
               style="text-transform: none; font-size: 0.82rem; line-height: 1.75; margin-bottom: 12px;">
               I specialise in building visually appealing and user-friendly websites using modern web technologies. My
@@ -1648,12 +1648,12 @@
               <div class="info-sub-block">
                 <div class="info-sub-title">EDUCATION</div>
                 <div class="info-date">2022 - 2024</div>
-                <div class="info-detail-main">JOHN DEWEY MAT. HR. SEC. SCHOOL</div>
+                <div class="info-detail-main" style="color: #ff8c00;">JOHN DEWEY MAT. HR. SEC. SCHOOL</div>
                 <div class="info-detail-sub">Panruti — Higher Secondary</div>
               </div>
               <div class="info-sub-block" style="margin-top: 12px;">
                 <div class="info-date">2024 - Present</div>
-                <div class="info-detail-main">ST. JOSEPH'S COLLEGE OF ARTS &amp; SCIENCE</div>
+                <div class="info-detail-main" style="color: #ff8c00;">ST. JOSEPH'S COLLEGE OF ARTS &amp; SCIENCE</div>
                 <div class="info-detail-sub">Trichy — BSc Computer Science</div>
               </div>
 
@@ -2165,6 +2165,21 @@
 
         // Render main image frame scaled full-screen
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
+
+        // Hide bottom-right ezgif watermark cleanly
+        const scaleX = drawW / imgW;
+        const scaleY = drawH / imgH;
+        const wmX = drawX + 1650 * scaleX;
+        const wmY = drawY + 960 * scaleY;
+        const wmW = 270 * scaleX;
+        const wmH = 120 * scaleY;
+
+        ctx.drawImage(
+          img,
+          1650, 840, 270, 120, // Sample clean background above
+          wmX, wmY, wmW, wmH   // Cover bottom-right watermark
+        );
+
         ctx.restore();
       }
 
