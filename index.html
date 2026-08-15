@@ -131,27 +131,16 @@
         height: 100vh;
       }
 
-      /* Vignette Overlay */
+      /* Vignette Overlay — naturally darkens edges and bottom-right (hides watermark seamlessly) */
       .viewport-overlay {
         position: absolute;
         inset: 0;
         background:
+          radial-gradient(ellipse 28% 22% at 100% 100%, rgba(8, 8, 10, 0.97) 0%, rgba(8, 8, 10, 0.7) 45%, transparent 100%),
           linear-gradient(to right, rgba(8, 8, 10, 0.65) 0%, rgba(8, 8, 10, 0.2) 50%, rgba(8, 8, 10, 0.55) 100%),
           linear-gradient(to bottom, rgba(8, 8, 10, 0.4) 0%, transparent 25%, transparent 75%, rgba(8, 8, 10, 0.7) 100%);
         pointer-events: none;
         z-index: 2;
-      }
-
-      /* Bottom-right watermark shield — fixed, always covers that corner */
-      .watermark-shield {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        width: 220px;
-        height: 130px;
-        background: radial-gradient(ellipse at 100% 100%, #08080a 40%, rgba(8,8,10,0.85) 65%, transparent 100%);
-        pointer-events: none;
-        z-index: 10;
       }
 
       /* Preloader */
@@ -1476,6 +1465,95 @@
         background: #ff4500;
         box-shadow: 0 0 14px rgba(255, 69, 0, 0.9);
       }
+      /* ================= RESPONSIVE — TABLET (≤900px) ================= */
+      @media (max-width: 900px) {
+        .section-container { padding: 20px 28px; }
+
+        /* Navbar */
+        .navbar { flex-wrap: wrap; gap: 12px; }
+        .nav-menu { gap: 16px; padding: 7px 16px; }
+        .nav-link { font-size: 0.82rem; }
+
+        /* Hero */
+        .hero-content { grid-template-columns: 1fr; gap: 24px; padding-top: 12px; }
+        .hero-right { display: none; }
+        .hero-headline { font-size: 2.8rem; }
+        .hero-description { font-size: 0.92rem; max-width: 100%; }
+        .stat-card { min-width: 100px; padding: 12px 16px; }
+        .stat-number { font-size: 1.5rem; }
+
+        /* About */
+        .about-main-content { grid-template-columns: 1fr; gap: 24px; }
+        .author-name { font-size: 2.8rem; }
+        .info-columns-grid { grid-template-columns: 1fr; gap: 20px; }
+
+        /* Skills */
+        #sec3 { padding: 24px 28px !important; }
+        .skills-main-title { font-size: 2.2rem; }
+        .tool-card { width: 115px; height: 96px; }
+
+        /* Projects */
+        .projects-grid { grid-template-columns: 1fr; gap: 20px; }
+        .projects-header-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+        /* Contact */
+        .contact-main-grid { grid-template-columns: 1fr; gap: 32px; }
+        .contact-heading { font-size: 2.8rem; }
+        .form-row-2col { grid-template-columns: 1fr; }
+
+        /* Nav dots — hide on smaller screens */
+        .nav-dots-indicator { right: 12px; }
+      }
+
+      /* ================= RESPONSIVE — MOBILE (≤600px) ================= */
+      @media (max-width: 600px) {
+        .section-container { padding: 16px 18px; }
+
+        /* Navbar — stack brand + hide menu, show only logo + button */
+        .navbar { gap: 10px; }
+        .nav-menu { display: none; }
+        .btn-white-pill { padding: 9px 18px; font-size: 0.82rem; }
+        .brand-logo { font-size: 1.2rem; }
+
+        /* Hero */
+        .hero-headline { font-size: 2.1rem; letter-spacing: -0.03em; }
+        .hero-description { font-size: 0.84rem; }
+        .stats-row { flex-direction: row; flex-wrap: wrap; gap: 10px; }
+        .stat-card { min-width: 80px; padding: 10px 12px; }
+        .stat-number { font-size: 1.3rem; }
+        .stat-label { font-size: 0.68rem; }
+        .btn-orange-cta { padding: 10px 20px; font-size: 0.86rem; }
+        .support-badge { font-size: 0.72rem; }
+
+        /* About */
+        .about-main-content { padding-top: 20px; }
+        .author-name { font-size: 2.2rem; }
+        .section-title { font-size: 1.4rem; }
+        .info-sub-title { font-size: 0.95rem; }
+
+        /* Skills */
+        #sec3 { padding: 18px 18px !important; }
+        .skills-main-title { font-size: 1.7rem; }
+        .category-cards-grid { gap: 10px; }
+        .tool-card { width: 96px; height: 86px; }
+        .tool-name { font-size: 0.68rem; }
+        .tool-icon svg { width: 22px; height: 22px; }
+
+        /* Projects */
+        .projects-main-title { font-size: 1.4rem; }
+        .project-num { font-size: 1.7rem; }
+        .project-title { font-size: 0.96rem; }
+        .project-card { padding: 16px; }
+
+        /* Contact */
+        .contact-heading { font-size: 2.1rem; }
+        .contact-subtext { font-size: 0.88rem; }
+        .contact-right-form { padding: 22px 16px; }
+        .btn-send-message { width: 100%; justify-content: center; }
+
+        /* Navigation dots */
+        .nav-dots-indicator { display: none; }
+      }
     </style>
   </head>
 
@@ -1496,9 +1574,6 @@
     <canvas id="animationCanvas"></canvas>
     <div class="viewport-overlay"></div>
   </div>
-
-  <!-- Bottom-right watermark shield -->
-  <div class="watermark-shield"></div>
 
   <!-- Side Navigation Dots (5 Sections) -->
   <div class="nav-dots-indicator">
