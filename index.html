@@ -1465,94 +1465,325 @@
         background: #ff4500;
         box-shadow: 0 0 14px rgba(255, 69, 0, 0.9);
       }
-      /* ================= RESPONSIVE — TABLET (≤900px) ================= */
-      @media (max-width: 900px) {
-        .section-container { padding: 20px 28px; }
-
-        /* Navbar */
-        .navbar { flex-wrap: wrap; gap: 12px; }
-        .nav-menu { gap: 16px; padding: 7px 16px; }
-        .nav-link { font-size: 0.82rem; }
-
-        /* Hero */
-        .hero-content { grid-template-columns: 1fr; gap: 24px; padding-top: 12px; }
-        .hero-right { display: none; }
-        .hero-headline { font-size: 2.8rem; }
-        .hero-description { font-size: 0.92rem; max-width: 100%; }
-        .stat-card { min-width: 100px; padding: 12px 16px; }
-        .stat-number { font-size: 1.5rem; }
-
-        /* About */
-        .about-main-content { grid-template-columns: 1fr; gap: 24px; }
-        .author-name { font-size: 2.8rem; }
-        .info-columns-grid { grid-template-columns: 1fr; gap: 20px; }
-
-        /* Skills */
-        #sec3 { padding: 24px 28px !important; }
-        .skills-main-title { font-size: 2.2rem; }
-        .tool-card { width: 115px; height: 96px; }
-
-        /* Projects */
-        .projects-grid { grid-template-columns: 1fr; gap: 20px; }
-        .projects-header-row { flex-direction: column; align-items: flex-start; gap: 10px; }
-
-        /* Contact */
-        .contact-main-grid { grid-template-columns: 1fr; gap: 32px; }
-        .contact-heading { font-size: 2.8rem; }
-        .form-row-2col { grid-template-columns: 1fr; }
-
-        /* Nav dots — hide on smaller screens */
-        .nav-dots-indicator { right: 12px; }
+      /* ================= RESPONSIVE SYSTEM (Android, iOS, Windows, macOS) ================= */
+      
+      /* Touch & Non-Hover Devices (Android, iOS, iPadOS, Touchscreens) */
+      @media (hover: none) or (pointer: coarse) {
+        #cursor-dot, #cursor-ring {
+          display: none !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+        }
+        *, html, body, a, button, input, textarea, select, label, .dot, .tool-card, .project-card, .quick-contact-card, .btn-white-pill, .btn-orange-cta, .btn-send-message {
+          cursor: auto !important;
+        }
       }
 
-      /* ================= RESPONSIVE — MOBILE (≤600px) ================= */
-      @media (max-width: 600px) {
-        .section-container { padding: 16px 18px; }
+      /* Global Safe Area & Layout Constraints */
+      .ui-viewport {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
 
-        /* Navbar — stack brand + hide menu, show only logo + button */
-        .navbar { gap: 10px; }
-        .nav-menu { display: none; }
-        .btn-white-pill { padding: 9px 18px; font-size: 0.82rem; }
-        .brand-logo { font-size: 1.2rem; }
+      /* ================= TABLET & SMALL LAPTOPS (≤ 1024px) ================= */
+      @media (max-width: 1024px) {
+        .section-container {
+          padding: 24px 32px;
+          min-height: 100vh;
+          min-height: 100dvh;
+        }
+
+        .hero-headline {
+          font-size: clamp(2.6rem, 5.5vw, 3.4rem);
+        }
+
+        .hero-content {
+          gap: 24px;
+        }
+
+        .contact-main-grid {
+          gap: 36px;
+        }
+
+        .contact-heading {
+          font-size: clamp(2.8rem, 6vw, 3.6rem);
+        }
+      }
+
+      /* ================= TABLETS & FOLDABLES (≤ 900px) ================= */
+      @media (max-width: 900px) {
+        .section-container {
+          padding: 20px 24px;
+          height: auto;
+          min-height: 100vh;
+          min-height: 100dvh;
+          justify-content: flex-start;
+          gap: 28px;
+        }
 
         /* Hero */
-        .hero-headline { font-size: 2.1rem; letter-spacing: -0.03em; }
-        .hero-description { font-size: 0.84rem; }
-        .stats-row { flex-direction: row; flex-wrap: wrap; gap: 10px; }
-        .stat-card { min-width: 80px; padding: 10px 12px; }
-        .stat-number { font-size: 1.3rem; }
-        .stat-label { font-size: 0.68rem; }
-        .btn-orange-cta { padding: 10px 20px; font-size: 0.86rem; }
-        .support-badge { font-size: 0.72rem; }
+        .hero-content {
+          grid-template-columns: 1fr;
+          gap: 28px;
+          padding-top: 10px;
+          padding-bottom: 20px;
+        }
+        .hero-left {
+          max-width: 100%;
+        }
+        .hero-right {
+          align-items: flex-start;
+          width: 100%;
+          height: auto;
+          gap: 16px;
+        }
+        .widget-performance {
+          align-self: flex-start;
+        }
+        .partners-bar {
+          align-self: flex-start;
+          width: 100%;
+          flex-wrap: wrap;
+          padding: 10px 18px;
+        }
+        .partner-logos {
+          flex-wrap: wrap;
+          gap: 12px;
+        }
 
-        /* About */
-        .about-main-content { padding-top: 20px; }
-        .author-name { font-size: 2.2rem; }
-        .section-title { font-size: 1.4rem; }
-        .info-sub-title { font-size: 0.95rem; }
+        /* About Section */
+        .about-main-content {
+          grid-template-columns: 1fr;
+          gap: 24px;
+          padding-top: 16px;
+        }
+        .author-name {
+          font-size: clamp(2.4rem, 6vw, 3.2rem);
+        }
+        .info-columns-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
 
-        /* Skills */
-        #sec3 { padding: 18px 18px !important; }
-        .skills-main-title { font-size: 1.7rem; }
-        .category-cards-grid { gap: 10px; }
-        .tool-card { width: 96px; height: 86px; }
-        .tool-name { font-size: 0.68rem; }
-        .tool-icon svg { width: 22px; height: 22px; }
+        /* Skills Section */
+        #sec3 {
+          padding: 28px 24px !important;
+          height: auto;
+        }
+        .skills-main-title {
+          font-size: clamp(2rem, 5vw, 2.6rem);
+        }
+        .category-cards-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+          gap: 12px;
+          width: 100%;
+        }
+        .tool-card {
+          width: 100%;
+          height: 100px;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        .projects-header-row {
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+
+        /* Contact Section */
+        .contact-main-grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          padding: 10px 0;
+        }
+        .contact-heading {
+          font-size: clamp(2.4rem, 6vw, 3.2rem);
+        }
+        .contact-right-form {
+          padding: 28px 22px;
+        }
+
+        /* Nav Dots Indicator */
+        .nav-dots-indicator {
+          right: 10px;
+          opacity: 0.6;
+        }
+      }
+
+      /* ================= MOBILE PHONES (≤ 768px) ================= */
+      @media (max-width: 768px) {
+        .section-container {
+          padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+        }
+
+        /* Navbar - Horizontal Scrollable Pill Menu */
+        .navbar {
+          flex-wrap: wrap;
+          gap: 10px;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .brand-logo {
+          font-size: 1.25rem;
+          gap: 8px;
+        }
+        .logo-icon {
+          width: 28px;
+          height: 28px;
+          border-radius: 6px;
+        }
+        .logo-icon svg {
+          width: 15px;
+          height: 15px;
+        }
+        .btn-white-pill {
+          padding: 8px 18px;
+          font-size: 0.82rem;
+        }
+        .nav-menu {
+          order: 3;
+          width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          justify-content: flex-start;
+          padding: 6px 14px;
+          gap: 16px;
+          border-radius: 100px;
+          margin-top: 4px;
+        }
+        .nav-menu::-webkit-scrollbar {
+          display: none;
+        }
+        .nav-link {
+          white-space: nowrap;
+          font-size: 0.8rem;
+        }
+
+        /* Hero */
+        .hero-headline {
+          font-size: clamp(2rem, 7.5vw, 2.8rem);
+          line-height: 1.08;
+        }
+        .hero-description {
+          font-size: 0.9rem;
+          line-height: 1.55;
+        }
+        .stats-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+          width: 100%;
+        }
+        .stat-card {
+          min-width: 0;
+          padding: 12px 10px;
+          border-radius: 12px;
+        }
+        .stat-number {
+          font-size: clamp(1.2rem, 4vw, 1.6rem);
+        }
+        .stat-label {
+          font-size: 0.68rem;
+        }
+        .btn-orange-cta {
+          padding: 11px 22px;
+          font-size: 0.88rem;
+        }
 
         /* Projects */
-        .projects-main-title { font-size: 1.4rem; }
-        .project-num { font-size: 1.7rem; }
-        .project-title { font-size: 0.96rem; }
-        .project-card { padding: 16px; }
+        .projects-main-title {
+          font-size: 1.4rem;
+        }
+        .project-card {
+          padding: 16px;
+          border-radius: 16px;
+        }
+        .project-num {
+          font-size: 1.6rem;
+        }
+        .project-title {
+          font-size: 1rem;
+        }
 
-        /* Contact */
-        .contact-heading { font-size: 2.1rem; }
-        .contact-subtext { font-size: 0.88rem; }
-        .contact-right-form { padding: 22px 16px; }
-        .btn-send-message { width: 100%; justify-content: center; }
+        /* Forms (iOS Safari Zoom Prevention with 16px input font) */
+        .form-row-2col {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .form-input, .form-textarea {
+          font-size: 16px;
+          padding: 12px 16px;
+        }
+        .btn-send-message {
+          width: 100%;
+          justify-content: center;
+          padding: 13px 20px;
+        }
 
-        /* Navigation dots */
-        .nav-dots-indicator { display: none; }
+        /* Hide Nav Dots on Mobile screens */
+        .nav-dots-indicator {
+          display: none;
+        }
+      }
+
+      /* ================= EXTRA SMALL MOBILE (≤ 480px) ================= */
+      @media (max-width: 480px) {
+        .section-container {
+          padding: max(14px, env(safe-area-inset-top)) 14px max(14px, env(safe-area-inset-bottom)) 14px;
+          gap: 20px;
+        }
+
+        .hero-headline {
+          font-size: 1.95rem;
+        }
+
+        .stats-row {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 6px;
+        }
+        .stat-card {
+          padding: 10px 8px;
+        }
+        .stat-number {
+          font-size: 1.25rem;
+        }
+        .stat-label {
+          font-size: 0.62rem;
+        }
+
+        .category-cards-grid {
+          grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+          gap: 8px;
+        }
+        .tool-card {
+          height: 88px;
+          border-radius: 10px;
+        }
+        .tool-name {
+          font-size: 0.66rem;
+        }
+        .tool-icon svg {
+          width: 22px;
+          height: 22px;
+        }
+
+        .author-name {
+          font-size: 2.2rem;
+        }
+
+        .contact-heading {
+          font-size: 2.1rem;
+        }
+        .quick-contact-card {
+          padding: 12px 14px;
+        }
       }
     </style>
   </head>
@@ -2211,7 +2442,8 @@
 
       function resizeCanvas() {
         if (!canvas) return;
-        const dpr = window.devicePixelRatio || 1;
+        // Cap DPR at 2 for mobile device GPU efficiency and high responsiveness
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
         canvas.width = window.innerWidth * dpr;
         canvas.height = window.innerHeight * dpr;
         canvas.style.width = window.innerWidth + 'px';
